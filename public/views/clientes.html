@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrar Clientes</title>
+    <link rel="stylesheet" href="/css/clientes.css" />
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>AuraSys</h2>
+        <ul>
+            <li><a href="facturacion.html">Facturación</a></li>
+            <li><a href="administrarProductos.html">Productos</a></li>
+            <li><a href="clientes.html" class="active">Clientes</a></li>
+            <li><a href="administrarProductos.html">Proveedores</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="card">
+            <h1 class="titulo">Administrar Clientes</h1>
+            <table id="tablaClientes">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTablaClientes">
+                    <!-- Datos insertados por JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/clientes.js"></script>
+</body>
+
+
+</html>

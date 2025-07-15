@@ -1,0 +1,122 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 🔐 Solo para login
+model Usuario {
+  id          Int     @id @default(autoincrement())
+  nombre      String
+  contraseña  String
+  cargo       String
+}
+
+// 👥 Clientes que compran y pueden generar cuentas por cobrar
+model Cliente {
+  id                 Int                 @id @default(autoincrement())
+  nombre             String
+  telefono           String  @unique
+  facturas           Factura[]          // Relación 1:N
+  cuentasPorCobrar   CuentaPorCobrar[]  // Relación 1:N
+  informes           Informe[]          // Relación con informes (ingresos)
+}
+
+// 🧾 Factura relacionada con un cliente
+model Factura {
+  id              Int                 @id @default(autoincrement())
+  fecha           DateTime           @default(now())
+  formaPago       String
+  vendedor        String
+  administrador   String
+  referencia      String?
+  saldo           Float
+  total           Float
+  efectivo        Float?
+  cambio          Float?
+  estado          String             @default("pendiente")
+  clienteId       Int
+  cliente         Cliente            @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  productos       FacturaProducto[]  // ← detalle de productos
+  cuentaPorCobrar CuentaPorCobrar?   // ← 1:1 opcional
+  informes        Informe[]          // Relación con informes (ingresos)
+}
+
+// 🧮 Relación entre productos y cada factura (detalle de compra)
+model FacturaProducto {
+  id             Int      @id @default(autoincrement())
+  facturaId      Int
+  factura        Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
+  productoId     Int
+  producto       Producto @relation(fields: [productoId], references: [id])
+  cantidad       Int
+  precioUnitario Float
+  descuento      Float
+  ivaPorcentaje  Float
+  totalNeto      Float
+}
+
+// 🏦 Si el cliente no paga todo, queda registrado aquí
+model CuentaPorCobrar {
+  id           Int      @id @default(autoincrement())
+  total        Float
+  fechaEmision DateTime @default(now())
+  estado       String   @default("pendiente")
+  facturaId    Int      @unique
+  factura      Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
+  clienteId    Int
+  cliente      Cliente  @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+}
+
+// 📦 Productos en venta
+model Producto {
+  id             Int        @id @default(autoincrement())
+  codigo         String     @unique
+  tipo           String
+  nombre         String
+  costo          Float
+  precioUnitario Float?
+  unidades       Int?
+  proveedorId    Int?
+  proveedor      Proveedor? @relation(fields: [proveedorId], references: [id])
+  fechaIngreso   DateTime   @default(now())
+  createdAt      DateTime   @default(now())
+  facturas       FacturaProducto[]
+  informes       Informe[]         // Relación con informes (gastos)
+}
+
+// 🏢 Proveedores de productos
+model Proveedor {
+  id        Int        @id @default(autoincrement())
+  nombre    String
+  productos Producto[]
+  informes  Informe[]  // Relación con informes (gastos)
+}
+
+// 📊 Ingresos y Gastos de la empresa
+model Informe {
+  id           Int       @id @default(autoincrement())
+  tipo         String    // "ingreso" o "gasto"
+  descripcion  String
+  fecha        DateTime  @default(now())
+  monto        Float
+
+  // Relación con Cliente (solo si es ingreso)
+  clienteId    Int?
+  cliente      Cliente?  @relation(fields: [clienteId], references: [id], onDelete: SetNull)
+
+  // Relación con Factura (solo si es ingreso)
+  facturaId    Int?
+  factura      Factura?  @relation(fields: [facturaId], references: [id], onDelete: SetNull)
+
+  // Relación con Proveedor (solo si es gasto)
+  proveedorId  Int?
+  proveedor    Proveedor? @relation(fields: [proveedorId], references: [id], onDelete: SetNull)
+
+  // Relación con Producto (solo si es gasto)
+  productoId   Int?
+  producto     Producto?  @relation(fields: [productoId], references: [id], onDelete: SetNull)
+}

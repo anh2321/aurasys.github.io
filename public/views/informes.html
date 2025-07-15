@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informe de Ingresos y Gastos</title>
+    <link rel="stylesheet" href="/css/informes.css" />
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>AuraSys</h2>
+        <ul>
+            <li><a href="/dashboard">📊 Dashboard</a></li>
+            <li><a href="/facturacion">🧾 Facturación</a></li>
+            <li><a href="/administrarProductos">📦 Productos</a></li>
+            <li><a href="/clientes">👥 Clientes</a></li>
+            <li><a href="/proveedores">🏢 Proveedores</a></li>
+        </ul>
+    </div>
+
+    <div class="contenido">
+        <div class="encabezado">
+            <h2>📊 Informe de Ingresos y Gastos</h2>
+            <button class="btn-exportar">📄 Exportar a PDF</button>
+        </div>
+
+        <!-- 🧾 Formulario para agregar informe -->
+        <div class="formulario-informe">
+            <form id="formInforme">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="ingreso">Ingreso</option>
+                    <option value="gasto">Gasto</option>
+                </select>
+
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required />
+
+                <label for="monto">Monto:</label>
+                <input type="number" step="0.01" id="monto" name="monto" required />
+
+                <label for="relacionadoId">Cliente / Proveedor:</label>
+                <select id="relacionadoId" name="relacionadoId" required>
+                    <!-- JS insertará las opciones -->
+                </select>
+
+                <button type="submit">✅ Guardar</button>
+            </form>
+        </div>
+
+        <!-- 📋 Tabla de informes -->
+        <div class="tabla-contenedor">
+            <table id="tablaInformes">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Relacionado con</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS insertará las filas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/informes.js"></script>
+    <script src="../js/pagoFormaHelper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+</body>
+
+</html>

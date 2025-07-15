@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Panel de Inicio - AuraSys</title>
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="logo">AuraSys</h2>
+            <nav class="menu">
+                <a href="facturacion.html">Factura a Clientes</a>
+                <a href="reportes.html">Reporte de Ventas</a>
+                <a href="ingresos.html">Ingresos</a>
+                <a href="gastos.html">Gastos</a>
+                <a href="inventario.html">Inventario</a>
+                <a href="informes.html">informes</a>
+
+                <!-- Nuevos accesos -->
+                <a href="administrarProductos.html">Administrar Productos</a>
+                <a href="clientes.html">Administrar Clientes</a>
+                <a href="nuevoProducto.html">Nuevo Producto</a>
+
+                <a href="proveedores.html">Proveedores</a>
+                <a href="saldosBancarios.html">Saldos Bancarios</a>
+                <a href="cuentasPorCobrar.html">Cuentas por Cobrar</a>
+                <a href="cuentasPorPagar.html">Cuentas por Pagar</a>
+                <a href="index.html">Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <header class="header">
+                <div class="header-top">
+                    <h1>Panel de Inicio</h1>
+                    <button id="cerrarSesion">Cerrar Sesión</button>
+                </div>
+                <p>Resumen general del sistema</p>
+            </header>
+
+            <!-- Summary Cards -->
+            <section class="cards">
+                <div class="card red">
+                    <h3>$ 18,422.34</h3>
+                    <p>Saldos Bancarios</p>
+                </div>
+                <div class="card blue">
+                    <h3>$ 4,121.36</h3>
+                    <p>Cuentas por Pagar</p>
+                </div>
+                <div class="card green">
+                    <h3>$ 3,389.22</h3>
+                    <p>Cuentas por Cobrar</p>
+                </div>
+                <div class="card orange">
+                    <h3>$ 27,897.96</h3>
+                    <p>Total Ingresos</p>
+                </div>
+            </section>
+
+            <!-- Charts -->
+            <section class="charts">
+                <div class="chart-container"><canvas id="barChart"></canvas></div>
+                <div class="chart-container"><canvas id="pieChart"></canvas></div>
+                <div class="chart-container"><canvas id="lineChart"></canvas></div>
+                <div class="chart-container"><canvas id="radarChart"></canvas></div>
+                <div class="chart-container"><canvas id="doughnutChart"></canvas></div>
+                <div class="chart-container"><canvas id="polarChart"></canvas></div>
+                <div class="chart-container"><canvas id="areaChart"></canvas></div>
+                <div class="chart-container"><canvas id="stackedChart"></canvas></div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+
+</html>
