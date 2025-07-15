@@ -38,7 +38,7 @@ app.use("/api/cuentas-por-cobrar", cuentasPorCobrarRoutes); // <- corregido con 
 
 // ✅ Rutas HTML (vistas frontend)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "views", "index.html"));
+    res.sendFile(path.join(__dirname,"public", "views", "index.html"));
 });
 app.get("/dashboard", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "views", "dashboard.html"));
