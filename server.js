@@ -15,6 +15,8 @@ import facturasRoutes from "./src/routes/facturas.route.js";
 import proveedoresRoutes from "./src/routes/proveedores.route.js";
 import inventarioRoutes from "./src/routes/inventario.route.js";
 import cuentasPorCobrarRoutes from "./src/routes/cuentasPorCobrar.js"; // <- existe y se usa abajo con guiones
+import facturasClientesRoute from './src/routes/facturasClientes.route.js';
+
 
 dotenv.config();
 
@@ -35,10 +37,10 @@ app.use("/api/proveedores", proveedoresRoutes);
 app.use("/api/inventario", inventarioRoutes);
 app.use("/api/informes", informesRoutes);
 app.use("/api/cuentas-por-cobrar", cuentasPorCobrarRoutes); // <- corregido con guiones
-
+app.use("/api/facturas-clientes", facturasClientesRoute);
 // ✅ Rutas HTML (vistas frontend)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname,"public", "views", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "views", "index.html"));
 });
 app.get("/dashboard", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "views", "dashboard.html"));
@@ -66,6 +68,9 @@ app.get("/cuentasPorCobrar", (req, res) => {
 });
 app.get("/cuentasPorPagar", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "views", "cuentasPorPagar.html"));
+});
+app.get("/html/facturasClientes.html", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "views", "facturasClientes.html"));
 });
 
 // ✅ Iniciar servidor
