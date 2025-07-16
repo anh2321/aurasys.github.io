@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const mensaje = document.getElementById('mensaje-error');
 
     try {
-        const res = await fetch('/api/cuentas-por-cobrar');
+        const res = await fetch('https://aurasys-production.up.railway.app/api/cuentas-por-cobrar');
         const cuentas = await res.json();
 
         if (!Array.isArray(cuentas) || cuentas.length === 0) {
